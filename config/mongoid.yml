@@ -1,0 +1,6 @@
+defaults: &defaults
+  host: localhost
+
+development:
+  <<: *defaults
+  database: ticckle_development
