@@ -1,1 +1,1 @@
-rvm use 2.0.0@mongo --create
+rvm use 5.0.0@mongo --create

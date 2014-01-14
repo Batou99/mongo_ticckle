@@ -9,8 +9,9 @@ class MongoVideo
   field :guid
   field :s3_key
   field :state
-  embedded_in :user, class_name: 'MongoUser'
-  embedded_in :topic, class_name: 'MongoTopic'
+
+  belongs_to :user, class_name: 'MongoUser'
+  embedded_in :topic, class_name: 'MongoTopic', inverse_of: :videos
 
   def username
     _id

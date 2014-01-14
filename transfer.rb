@@ -24,7 +24,7 @@ MongoTopic.delete_all
 MongoVideo.delete_all
 
 User.all.each do |user|
-  MongoUser.create(username: user.username, email: user.email).save
+  MongoUser.create(username: user.username, email: user.email)
 end
 
 Topic.all.each do |topic|
@@ -37,6 +37,7 @@ Topic.all.each do |topic|
 end
 
 Video.all.each do |video|
+  next unless video.topic && video.topic.discussion && video.user
   mv = MongoVideo.new(
     title: video.title,
     points: video.points,
@@ -45,21 +46,22 @@ Video.all.each do |video|
     s3_key: video.s3_key,
     state: video.state
   )
-  if video.user
-    user = MongoUser.where(username: video.user.username).first
-    mv.user = user
-    mv.save
-    user.videos << mv
-    user.save
+  topic = MongoTopic.where(permalink: video.topic.permalink).first
+  user = MongoUser.where(username: video.user.username).first
+  mv.topic = topic
+  mv.user = user
+  mv.save
+  topic.videos << mv
+  topic.save
+  user.videos << mv
+  user.save
+  #if mv.topic.videos.first.user.try(:username)
+    #puts "Full relation written: #{mv.topic}"
+  #end
+  if video.topic.discussion=="do we spend to much time online?"
+    puts "#{mv._id} #{mv.user._id}" 
   end
 
-  if video.topic && video.topic.discussion
-    topic = MongoTopic.where(permalink: video.topic.permalink).first
-    mv.topic = topic
-    mv.save
-    topic.videos << mv
-    topic.save
-  end
 end
 
 binding.pry
