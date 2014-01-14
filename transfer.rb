@@ -51,16 +51,9 @@ Video.all.each do |video|
   mv.topic = topic
   mv.user = user
   mv.save
-  topic.videos << mv
-  topic.save
-  user.videos << mv
+  user.video_ids =[] if !user.video_ids 
+  user.video_ids << mv._id
   user.save
-  #if mv.topic.videos.first.user.try(:username)
-    #puts "Full relation written: #{mv.topic}"
-  #end
-  if video.topic.discussion=="do we spend to much time online?"
-    puts "#{mv._id} #{mv.user._id}" 
-  end
 
 end
 
