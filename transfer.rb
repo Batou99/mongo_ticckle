@@ -28,11 +28,13 @@ User.all.each do |user|
 end
 
 Topic.all.each do |topic|
-  MongoTopic.create(
+  MongoTopic.timeless.create(
     discussion: topic.discussion,
     points: topic.points,
     views_count: topic.views_count,
-    permalink: topic.permalink
+    permalink: topic.permalink,
+    updated_at: topic.updated_at,
+    created_at: topic.created_at
   )
 end
 

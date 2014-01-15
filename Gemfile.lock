@@ -45,6 +45,10 @@ GEM
       slop (~> 3.4)
     slop (3.4.7)
     tzinfo (0.3.38)
+    will_paginate (3.0.5)
+    will_paginate_mongoid (2.0.1)
+      mongoid
+      will_paginate (~> 3.0)
 
 PLATFORMS
   ruby
@@ -56,3 +60,4 @@ DEPENDENCIES
   mongoid (~> 3.1.6)
   mysql2
   pry
+  will_paginate_mongoid
