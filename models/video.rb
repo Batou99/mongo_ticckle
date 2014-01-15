@@ -6,7 +6,7 @@ class Video < ActiveRecord::Base
   belongs_to :topic
   #validates :topic_id, presence: true
 
-  #has_many :ticckles, dependent: :destroy
+  has_many :ticckles, dependent: :destroy
   #has_many :viewings, dependent: :destroy, as: :viewable
 
 

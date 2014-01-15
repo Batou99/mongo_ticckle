@@ -4,9 +4,11 @@ require 'pry'
 require './models/user'
 require './models/video'
 require './models/topic'
+require './models/ticckle'
 require './models/mongo_user'
 require './models/mongo_video'
 require './models/mongo_topic'
+require './models/mongo_ticckle'
 
 require 'mongoid'
 
@@ -56,6 +58,15 @@ Video.all.each do |video|
   user.video_ids =[] if !user.video_ids 
   user.video_ids << mv._id
   user.save
+
+  video.ticckles.each do |ticckle|
+    mu = MongoUser.where(username: ticckle.user.username).first
+    MongoTicckle.create(
+      active: ticckle.active,
+      user: mu,
+      video: mv
+    )
+  end
 
 end
 
