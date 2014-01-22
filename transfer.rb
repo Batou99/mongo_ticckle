@@ -63,6 +63,7 @@ def prepare
     mv.topic = topic
     mv.user = user
     mv.save
+
     user.video_ids =[] if !user.video_ids 
     user.video_ids << mv._id
     user.save
@@ -77,6 +78,8 @@ def prepare
     end
 
   end
+
+  MongoTopic.each(&:save)
 end
 prepare
 #
