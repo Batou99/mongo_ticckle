@@ -1,4 +1,6 @@
 require File.join(File.dirname(__FILE__), 'conector_ar')
+require File.join(File.dirname(__FILE__), 'static_collection')
+require File.join(File.dirname(__FILE__), 'category')
 
 class Topic < ActiveRecord::Base
 
@@ -32,6 +34,10 @@ class Topic < ActiveRecord::Base
 
   def to_param
     "#{self.id}-#{self.name.to_s.parameterize}"
+  end
+
+  def category_name
+    Category.find(category_id).name rescue :unknown
   end
 
 end

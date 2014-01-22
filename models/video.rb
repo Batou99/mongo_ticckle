@@ -8,10 +8,15 @@ class Video < ActiveRecord::Base
 
   has_many :ticckles, dependent: :destroy
   #has_many :viewings, dependent: :destroy, as: :viewable
+  belongs_to :reply_to_opinion, :class_name => "Video", :foreign_key => :reply_to_opinion_id
 
 
   #def ticckles_count
     #ticckles ? ticckles.select { |t| t.active==true }.count : 0 
   #end
+  #
+  def depth
+    reply_to_opinion ? reply_to_opinion.depth+1 : 0
+  end
 
 end

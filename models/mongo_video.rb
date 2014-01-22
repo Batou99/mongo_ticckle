@@ -9,6 +9,9 @@ class MongoVideo
   field :guid
   field :s3_key
   field :state
+  field :thumbnail_file_name
+  field :old_id
+  field :depth
 
   belongs_to :user, class_name: 'MongoUser'
   embedded_in :topic, class_name: 'MongoTopic', inverse_of: :videos
