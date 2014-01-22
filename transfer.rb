@@ -25,6 +25,7 @@ def prepare
   MongoUser.delete_all
   MongoTopic.delete_all
   MongoVideo.delete_all
+  MongoTicckle.delete_all
 
   User.all.each do |user|
     MongoUser.create(username: user.username, email: user.email)
