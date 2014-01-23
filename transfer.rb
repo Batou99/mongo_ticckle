@@ -28,7 +28,7 @@ def prepare
   MongoTicckle.delete_all
 
   User.all.each do |user|
-    MongoUser.create(username: user.username, email: user.email)
+    MongoUser.create(username: user.username, email: user.email, full_name: [user.first_name, user.last_name].join(" "), avatar_url: user.avatar_url)
   end
 
   Topic.all.each do |topic|
