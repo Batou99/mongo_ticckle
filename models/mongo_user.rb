@@ -23,6 +23,10 @@ class MongoUser
   field :token
   field :secret
 
+  # Misc
+  field :avatar_url
+  field :full_name
+
   def videos
     # This returns an enumerator that breaks on last element (count does not work)
     #MongoTopic.all.map(&:videos).flatten.find(video_ids)
