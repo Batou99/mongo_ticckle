@@ -25,9 +25,29 @@ def prepare
   MongoUser.delete_all
   MongoTopic.delete_all
   MongoVideo.delete_all
+  MongoTopic.delete_all
 
   User.all.each do |user|
-    MongoUser.create(username: user.username, email: user.email)
+    conf = user.configuration || Configuration.new
+    auth = user.authentications.last || Authentication.new
+    MongoUser.create(
+      username: user.username, 
+      email: user.email,
+      ticckle_notifications: conf.ticckle_notifications,
+      reply_notifications: conf.reply_notifications,
+      digest_emails: conf.digest_emails,
+      social_mode: conf.social_mode,
+      join_notifications: conf.join_notifications,
+      email_ticckle_notification: user.get_share_config('email_ticckle_notification'),
+      email_weekly_notification: user.get_share_config('email_weekly_notification'),
+      email_video_response_notification: user.get_share_config('email_video_response_notification'),
+      email_debate_contribution_notification: user.get_share_config('email_debate_contribution_notification'),
+      provider: auth.provider,
+      uid: auth.uid,
+      token: auth.token,
+      secret: auth.secret
+    )
+    
   end
 
   Topic.all.each do |topic|
