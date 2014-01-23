@@ -26,6 +26,7 @@ def prepare
   MongoTopic.delete_all
   MongoVideo.delete_all
   MongoTopic.delete_all
+  MongoTicckle.delete_all
 
   User.all.each do |user|
     conf = user.configuration || Configuration.new
@@ -33,6 +34,8 @@ def prepare
     MongoUser.create(
       username: user.username, 
       email: user.email,
+      full_name: [user.first_name, user.last_name].join(" "),
+      avatar_url: user.avatar_url,
       ticckle_notifications: conf.ticckle_notifications,
       reply_notifications: conf.reply_notifications,
       digest_emails: conf.digest_emails,
@@ -82,6 +85,7 @@ def prepare
     mv.topic = topic
     mv.user = user
     mv.save
+
     user.video_ids =[] if !user.video_ids 
     user.video_ids << mv._id
     user.save
@@ -96,6 +100,8 @@ def prepare
     end
 
   end
+
+  MongoTopic.each(&:save)
 end
 prepare
 #
