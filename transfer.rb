@@ -50,9 +50,10 @@ def prepare
       uid: auth.uid,
       token: auth.token,
       secret: auth.secret,
-      devices: devices
+      devices: devices,
+      old_id: user.id,
+      created_at: user.created_at
     )
-    
   end
 
   Topic.all.each do |topic|
@@ -80,7 +81,8 @@ def prepare
       state: video.state,
       thumbnail_file_name: "videos/thumbnails/#{video.id}/original/#{video.thumbnail_file_name}",
       old_id: video.id,
-      depth: video.depth
+      depth: video.depth,
+      created_at: video.created_at
     )
     topic = MongoTopic.where(permalink: video.topic.permalink).first
     user = MongoUser.where(username: video.user.username).first
@@ -106,22 +108,7 @@ def prepare
   MongoTopic.each(&:save)
 end
 prepare
-#
-#map = %Q{
-  #function() {
-    #if (this.videos == null || this.videos.first == null) {
-      #return;
-    #}
-    #if (this.videos.first.user_id == '52de60b5d384a9d35c000014') {
-      #emit(this.videos.first.user_id, this);
-    #}
-  #}
-#}
-#reduce = %Q{
-  #function(k,v) {
-    #return v;
-  #}
-#}
+
 def map_user(user_id)
   %Q{
     function() {
