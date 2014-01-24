@@ -48,9 +48,10 @@ def prepare
       provider: auth.provider,
       uid: auth.uid,
       token: auth.token,
-      secret: auth.secret
+      secret: auth.secret,
+      old_id: user.id,
+      created_at: user.created_at
     )
-    
   end
 
   Topic.all.each do |topic|
@@ -78,7 +79,8 @@ def prepare
       state: video.state,
       thumbnail_file_name: "videos/thumbnails/#{video.id}/original/#{video.thumbnail_file_name}",
       old_id: video.id,
-      depth: video.depth
+      depth: video.depth,
+      created_at: video.created_at
     )
     topic = MongoTopic.where(permalink: video.topic.permalink).first
     user = MongoUser.where(username: video.user.username).first
