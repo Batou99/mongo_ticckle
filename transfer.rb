@@ -31,6 +31,7 @@ def prepare
   User.all.each do |user|
     conf = user.configuration || Configuration.new
     auth = user.authentications.last || Authentication.new
+    devices = user.devices.pluck(:token)
     MongoUser.create(
       username: user.username, 
       email: user.email,
@@ -48,7 +49,8 @@ def prepare
       provider: auth.provider,
       uid: auth.uid,
       token: auth.token,
-      secret: auth.secret
+      secret: auth.secret,
+      devices: devices
     )
     
   end

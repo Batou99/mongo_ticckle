@@ -4,6 +4,7 @@ class MongoUser
 
   field :email
   field :video_ids, type: Array
+  field :devices, type: Array
 
   # Configurations
   field :ticckle_notifications, type: Boolean, default: false

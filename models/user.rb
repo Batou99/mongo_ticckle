@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), 'conector_ar')
 require File.join(File.dirname(__FILE__), 'configuration')
 require File.join(File.dirname(__FILE__), 'share_config')
 require File.join(File.dirname(__FILE__), 'authentication')
+require File.join(File.dirname(__FILE__), 'device')
 
 class User < ActiveRecord::Base
   # FIXME: Move to yml file
@@ -14,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :share_configs
   has_many :authentications
   has_one :configuration, foreign_key: 'person_id', primary_key: 'id'
+  has_many :devices
 
   #has_many :tracked_topics
   #has_many :watches, :through => :tracked_topics, :source => :topic
