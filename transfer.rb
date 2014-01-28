@@ -18,7 +18,13 @@ Mongoid.configure do |config|
   name = "ticckle_development"
   host = "localhost"
   port = 27017
-  config.connect_to name
+  # config.connect_to name
+  config.sessions = {
+    default: {
+      database: name,
+      hosts: ["#{host}:#{port}"]
+    }
+  }
 end
 
 def prepare
