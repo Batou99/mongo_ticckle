@@ -11,7 +11,7 @@ class MongoVideo
   field :state
   field :thumbnail_file_name
   field :old_id
-  field :depth
+  field :position
 
   belongs_to :user, class_name: 'MongoUser'
   embedded_in :topic, class_name: 'MongoTopic', inverse_of: :videos

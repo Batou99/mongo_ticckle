@@ -20,6 +20,22 @@ class Video < ActiveRecord::Base
     reply_to_opinion ? reply_to_opinion.depth+1 : 0
   end
 
+  def get_position
+    return self.position unless self.position.blank?
+    if depth == 0
+      self.position = "0"
+    elsif depth == 1
+      idx = topic.videos.select { |v| v.depth == 1 }.sort { |x,y| x.id <=> y.id }.index(self)
+      self.position = "%03d" % idx.to_s
+    else
+      idx = topic.videos.select { |v| v.depth == depth }.sort { |x,y| x.id <=> y.id }.index(self)
+      last = "%03d" % idx.to_s
+      self.position = "#{reply_to_opinion.position}-#{last}"
+    end
+    self.save
+    self.position
+  end
+
 end
 
 class Opinion < Video; end

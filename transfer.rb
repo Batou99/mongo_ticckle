@@ -103,8 +103,8 @@ def prepare
       state: video.state,
       thumbnail_file_name: "videos/thumbnails/#{video.id}/original/#{video.thumbnail_file_name}",
       old_id: video.id,
-      depth: video.depth,
-      created_at: video.created_at
+      created_at: video.created_at,
+      position: video.get_position
     )
     topic = MongoTopic.where(permalink: video.topic.permalink).first
     user = MongoUser.where(username: video.user.username).first
