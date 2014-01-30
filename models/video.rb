@@ -21,3 +21,5 @@ class Video < ActiveRecord::Base
   end
 
 end
+
+class Opinion < Video; end
