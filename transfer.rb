@@ -117,6 +117,7 @@ def prepare
     user.save
 
     video.ticckles.each do |ticckle|
+      next unless ticckle.user
       mu = MongoUser.where(username: ticckle.user.username).first
       mt = MongoTicckle.create(
         active: ticckle.active,
