@@ -90,6 +90,9 @@ def prepare
       active: topic.active
     )
 
+    mt.user = mappings[:users][topic.user_id]
+    mt.save
+
     mappings[:topics][topic.id] = mt
   end
 
