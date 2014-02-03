@@ -85,6 +85,7 @@ def prepare
       created_at: topic.created_at,
       marked_as_featured_at: topic.marked_as_featured_at,
       tags: [topic.category_name],
+      type_id: topic.type_id,
       old_id: topic.id,
       active: topic.active
     )
