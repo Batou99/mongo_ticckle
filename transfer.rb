@@ -80,14 +80,10 @@ def prepare
       updated_at: topic.updated_at,
       created_at: topic.created_at,
       marked_as_featured_at: topic.marked_as_featured_at,
-      tags: [topic.category_name],
-      type_id: topic.type_id,
+      tags: [topic.category_name, "type:#{topic.type_name}"],
       old_id: topic.id,
       active: topic.active
     )
-
-    mt.user = mappings[:users][topic.user_id]
-    mt.save
 
     mappings[:topics][topic.id] = mt
   end

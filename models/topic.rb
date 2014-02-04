@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'conector_ar')
 require File.join(File.dirname(__FILE__), 'static_collection')
 require File.join(File.dirname(__FILE__), 'category')
+require File.join(File.dirname(__FILE__), 'type')
 
 class Topic < ActiveRecord::Base
 
@@ -40,5 +41,8 @@ class Topic < ActiveRecord::Base
     Category.find(category_id).name rescue :unknown
   end
 
+  def type_name
+    Type.find(type_id).name rescue :unknown
+  end
 end
 
