@@ -37,8 +37,12 @@ class Topic < ActiveRecord::Base
     "#{self.id}-#{self.name.to_s.parameterize}"
   end
 
+  def category
+    Category.find(category_id)
+  end
+
   def category_name
-    Category.find(category_id).name rescue :unknown
+    category.try(:name) || :unknown
   end
 
   def type_name

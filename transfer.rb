@@ -8,6 +8,7 @@ require './models/ticckle'
 require './models/ar_notification'
 require './models/static_collection'
 require './models/category'
+require './models/category_mapping'
 require './models/mongo_user'
 require './models/mongo_video'
 require './models/mongo_topic'
@@ -27,6 +28,10 @@ Mongoid.configure do |config|
       hosts: ["#{host}:#{port}"]
     }
   }
+end
+
+class CategoryMapper
+  include CategoryMapping
 end
 
 def prepare
@@ -71,7 +76,15 @@ def prepare
     mappings[:users][user.id] = mu
   end
 
+  category_mapper = CategoryMapper.new
+
   Topic.all.each do |topic|
+    if topic.category
+      category_name = category_mapper.map_to_new_category(topic.category).name
+    else
+      category_name = :obscure
+    end
+
     mt = MongoTopic.timeless.create(
       discussion: topic.discussion,
       points: topic.points,
@@ -80,7 +93,7 @@ def prepare
       updated_at: topic.updated_at,
       created_at: topic.created_at,
       marked_as_featured_at: topic.marked_as_featured_at,
-      tags: [topic.category_name, "type:#{topic.type_name}"],
+      tags: [category_name, "type:#{topic.type_name}"],
       old_id: topic.id,
       active: topic.active
     )
