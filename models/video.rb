@@ -26,7 +26,7 @@ class Video < ActiveRecord::Base
       self.position = "0"
     elsif depth == 1
       idx = topic.videos.select { |v| v.depth == 1 }.sort { |x,y| x.id <=> y.id }.index(self)
-      self.position = "%03d" % idx.to_s
+      self.position = "0-%03d" % idx.to_s
     else
       idx = topic.videos.select { |v| v.depth == depth }.sort { |x,y| x.id <=> y.id }.index(self)
       last = "%03d" % idx.to_s
