@@ -2,19 +2,9 @@
 require 'rubygems'
 require 'pry'
 
-require './models/user'
-require './models/video'
 require './models/topic'
-require './models/ticckle'
 require './models/ar_notification'
-require './models/static_collection'
-require './models/category'
-require './models/category_mapping'
-require './models/mongo_user'
-require './models/mongo_video'
 require './models/mongo_topic'
-require './models/mongo_ticckle'
-require './models/mongo_notification'
 
 require 'mongoid'
 
