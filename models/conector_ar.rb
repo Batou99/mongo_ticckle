@@ -6,9 +6,9 @@ require 'active_record'
 
 ActiveRecord::Base.establish_connection(  
 :adapter => "mysql2",  
-:host => "dev",  
+:host => "ticckledbinstance.cmd1tckkpcjq.us-east-1.rds.amazonaws.com",  
 :database => "ticckle_production", 
-:username => "root", 
-:password => "maverick",
+:username => "ticckle", 
+:password => "databasehub666",
 :encoding => "utf8"
 )
