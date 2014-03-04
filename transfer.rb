@@ -145,7 +145,7 @@ def prepare
   ARNotification.find_each do |notification|
     next unless mappings[:users].key?(notification.user_id) && mappings[:users].key?(notification.sender_id) && mappings[:topics].key?(notification.topic_id)
 
-    mn = Notification.create(created_at: notification.created_at)
+    mn = Notification.new
     mn.user   = mappings[:users][notification.user_id]
     mn.sender = mappings[:users][notification.sender_id]
     mn.topic  = mappings[:topics][notification.topic_id]
@@ -159,7 +159,7 @@ def prepare
 
     mn.save
     mn.set(:_type, notification.type)
-    mn.set(:created_at, notification.created_at)
+    mn.set(:created_at, noticeable.try(:created_at) || notification.created_at)
   end
 end
 prepare
